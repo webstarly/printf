@@ -1,37 +1,45 @@
 #include "main.h"
 
 /**
- * * get_width - Calculates the width for printing
+ * * print_string - loops through a string and prints
  *
- * * @format: Formatted string in which to print the arguments.
+ * * every character
  *
- * * @i: List of arguments to be printed.
+ * * @l: va_list arguments from _printf
  *
- * * @list: list of arguments.
+ * * @f: pointer to the struct flags that determines
  *
- * * Return: width.
+ * * if a flag is passed to _printf
+ *
+ * * Return: number of char printed
+ *
  */
-int get_width(const char *format, int *i, va_list list)
+int print_string(va_list l, flags_t *f)
 {
-	int curr_i;
-	int width = 0;
+	char *s = va_arg(l, char *);
 
-	for (curr_i = *i + 1; format[curr_i] != '\0'; curr_i++)
-	{
-		if (is_digit(format[curr_i]))
-		{
-			width *= 10;
-			width += format[curr_i] - '0';
-		}
-		else if (format[curr_i] == '*')
-		{
-			curr_i++;
-			width = va_arg(list, int);
-			break;
-		}
-		else
-			break;
-	}
-	*i = curr_i - 1;
-	return (width);
+	(void)f;
+
+	if (!s)
+		s = "(null)";
+	return (_puts(s));
+}
+
+/**
+ * * print_char - prints a character
+ *
+ * * @l: va_list arguments from _printf
+ *
+ * * @f: pointer to the struct flags that determines
+ *
+ * * if a flag is passed to _printf
+ *
+ * * Return: number of char printed
+ *
+ */
+int print_char(va_list l, flags_t *f)
+{
+	(void)f;
+	_putchar(va_arg(l, int));
+	return (1);
 }

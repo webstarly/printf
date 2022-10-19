@@ -1,27 +1,27 @@
 #include "main.h"
 
 /**
- * * get_size - Calculates the size to cast the argument
+ * * print_address - prints address of input in hexa format
  *
- * * @format: Formatted string in which to print the arguments
+ * * @l: va_list arguments from _printf
  *
- * * @i: List of arguments to be printed.
+ * * @f: pointer to the struct flags that determines
  *
- * * Return: Precision.
+ * * if a flag is passed to _printf
+ *
+ * * Return: number of char printed
  */
-int get_size(const char *format, int *i)
+int print_address(va_list l, flags_t *f)
 {
-	int curr_i = *i + 1;
-	int size = 0;
+	char *str;
+	unsigned long int p = va_arg(l, unsigned long int);
 
-	if (format[curr_i] == 'l')
-		size = S_LONG;
-	else if (format[curr_i] == 'h')
-		size = S_SHORT;
-
-	if (size == 0)
-		*i = curr_i - 1;
-	else
-		*i = curr_i;
-	return (size);
+	register int count = 0;
+	(void)f;
+	if (!p)
+	return (_puts("(nil)"));
+	str = convert(p, 16, 1);
+	count += _puts("0x");
+	count += _puts(str);
+	return (count);
 }
